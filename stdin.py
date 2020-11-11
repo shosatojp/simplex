@@ -3,7 +3,7 @@ import numpy as np
 from simplex import simplex, rationals
 import sys
 import sympy
-
+sys.tracebacklimit = 0
 
 def scanlist():
     line = sys.stdin.readline().strip()
