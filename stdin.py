@@ -19,6 +19,7 @@ def strlist2rationals(src: List[str]):
 
 
 if __name__ == "__main__":
+    print('シンプレックス法')
     MAX = input('最大化 or 最小化 (max or min)') == 'max'
     # 目的関数係数
     print('目的関数係数')
