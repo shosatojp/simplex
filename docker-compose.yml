@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+  gotty:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 127.0.0.1:8091:8080
