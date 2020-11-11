@@ -6,20 +6,14 @@ import sympy
 sys.tracebacklimit = 0
 
 
-def scanlist():
+def scanlist() -> List[str]:
     line = sys.stdin.readline().strip()
-    if len(line):
-        return list(map(lambda e: e.strip(),
-                        line.split(',')))
-    else:
-        return []
+    return list(map(lambda e: e.strip(),
+                    line.split(','))) if len(line) else []
 
 
-def strlist2rationals(src: List[str]):
-    return list(map(
-        lambda exp: sympy.parse_expr(exp),
-        src
-    ))
+def strlist2rationals(src: List[str]) -> List[sympy.Basic]:
+    return list(map(sympy.parse_expr, src))
 
 
 if __name__ == "__main__":
