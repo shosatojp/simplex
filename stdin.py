@@ -1,9 +1,10 @@
 from typing import List
 import numpy as np
-from simplex import simplex, rationals
+from simplex import simplex, M
 import sys
 import sympy
 sys.tracebacklimit = 0
+
 
 def scanlist():
     line = sys.stdin.readline().strip()
@@ -15,7 +16,10 @@ def scanlist():
 
 
 def strlist2rationals(src: List[str]):
-    return list(map(lambda e: sympy.Rational(*map(int, e.split('/'))), src))
+    return list(map(
+        lambda exp: sympy.parse_expr(exp),
+        src
+    ))
 
 
 if __name__ == "__main__":
