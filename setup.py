@@ -6,7 +6,7 @@ with open('README.md', 'rt', encoding='utf-8') as fh:
 
 setup(
     name='simplex',
-    version='0.0.1',
+    version='0.0.2',
     author='shosatojp',
     author_email='me@shosato.jp',
     description='simplex method',
