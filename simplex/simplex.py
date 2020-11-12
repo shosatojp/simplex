@@ -42,9 +42,6 @@ def step(MAX, c, c_name, m, base, base_name):
     pi = base @ m
     c_pi = c - pi[:-1]
 
-    # print('pi', pi)
-    # print('c - pi', c_pi)
-
     # 終了条件
     _subs_c_pi = subs_all(c_pi)
     if MAX:
@@ -54,10 +51,6 @@ def step(MAX, c, c_name, m, base, base_name):
 
     if finish:
         pretty_print(c, c_name, m, base, base_name, pi, c_pi)
-        # print(base_name)
-        # print(base)
-        # print(m)
-        # print('finish')
         print()
 
         for i, _c_name in enumerate(c_name):
@@ -80,7 +73,6 @@ def step(MAX, c, c_name, m, base, base_name):
     theta = np.array([sympy.Rational(0)] * _div.shape[0])
     theta[_pos_mask] = m[:, -1][_pos_mask] / _div[_pos_mask]
     theta[np.where(_div <= 0)] = np.inf
-    # print('theta', theta)
     piv_row = np.argmin(theta)
 
     pretty_print(c, c_name, m, base, base_name, pi, c_pi, theta)
@@ -96,11 +88,6 @@ def step(MAX, c, c_name, m, base, base_name):
         if i != piv_row:
             m[i] = m[i] - m[i, piv_col] * m[piv_row]
 
-    # print('='*COLUMN)
-    # print(base_name)
-    # print(base)
-    # print(m)
-
     return True
 
 
@@ -115,13 +102,6 @@ def simplex(MAX: int, c: np.ndarray, c_name: List[str], m: np.ndarray, base: np.
     if m.shape[1] != c.shape[0] + 1:
         print('m or c shape is invalid')
         return False
-
-    # print(c)
-    # print(c_name)
-    # print('-'*COLUMN)
-    # print(base)
-    # print(base_name)
-    # print(m)
 
     while step(MAX, c, c_name, m, base, base_name):
         print('-'*COLUMN)
