@@ -24,18 +24,45 @@ def rationals(a):
     return result
 
 
-def pretty_print(c, c_name, m, base, base_name, pi, c_pi, theta=None):
-    df = pd.DataFrame([
+def print_row(row: List[str], format: str, widths: np.ndarray):
+    i = 0
+    for col in format:
+        if col == '.':
+            s = row[i]
+            print(' ' * (widths[i] - len(s)) + s, end='')
+            i += 1
+        else:
+            print(col, end='')
+    print()
+
+
+def pretty_print(c, c_name, m, base, base_name, pi, c_pi, theta=None, marks=[]):
+    table = [
         ['', 'c', *list(c), '', ''],
         ['base', 'base_name', *list(c_name), 'const', 'theta'],
         *[
             [_base, _base_name, *list(_m), _theta]
-            for _base, _base_name, _m, _theta in zip(base, base_name, m,  ['']*len(base_name) if theta is None else theta)
+            for _base, _base_name, _m, _theta
+            in zip(base, base_name, m,
+                   ['']*len(base_name) if theta is None else theta)
         ],
         ['', 'pi', *list(pi), ''],
         ['', 'c - pi', *list(c_pi), '', '']
-    ], columns=None)
-    print(df.to_string(index=False, header=False))
+    ]
+    stringified = np.array(table).astype(str)
+    len_table = np.vectorize(len)(stringified)
+    col_widths = np.max(len_table, axis=0)
+    col_format = f'.  .  |  {".  "*len(c)}| .  .'
+    i = 0
+    for row in f'..-{"."*len(base)}=..':
+        if row == '.':
+            print_row(stringified[i], col_format, col_widths)
+            i += 1
+        else:
+            print(row*((len(col_format) - stringified.shape[1]) + np.sum(col_widths)))
+            # df = pd.DataFrame(table, columns=None)
+            # print(df.to_string(index=False, header=False))
+    print()
 
 
 def step(MAX, c, c_name, m, base, base_name):
@@ -124,4 +151,5 @@ def simplex(MAX: int, c: np.ndarray, c_name: List[str], m: np.ndarray, base: np.
     # print(m)
 
     while step(MAX, c, c_name, m, base, base_name):
-        print('-'*COLUMN)
+        pass
+        # print('-'*COLUMN)
