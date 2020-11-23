@@ -17,6 +17,8 @@ def rationals(a):
     for e in a:
         if isinstance(e, list):
             result.append(rationals(e))
+        elif isinstance(e, np.ndarray):
+            result.append(rationals(e.tolist()))
         elif isinstance(e, sympy.Basic):
             result.append(e)
         else:
@@ -105,3 +107,5 @@ def simplex(MAX: int, c: np.ndarray, c_name: List[str], m: np.ndarray, base: np.
 
     while step(MAX, c, c_name, m, base, base_name):
         print('-'*COLUMN)
+
+    return m, base, base_name
