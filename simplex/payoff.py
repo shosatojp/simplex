@@ -34,15 +34,18 @@ def optimal_policy(a: np.ndarray):
     for i, _c_name in enumerate(c_name[:a.shape[1]]):
         yi = m[:, -1][base_name.index(_c_name)] if _c_name in base_name else 0
 
+        # 相補性定理
         if yi != 0:
             eqs.append(np.concatenate([(a + C)[:, i], [sympy.Rational(1)]]))
 
         print(f'y{i + 1}* = {yi / _ans}')
 
+    # 双対定理
     eqs.append(np.array([sympy.Rational(1)] * a.shape[0] + [_ans]))
 
     if len(eqs) < a.shape[0]:
         print('Error: lack of equations')
+        exit(1)
 
     x = util.solve(np.array(eqs)[:a.shape[0]])
 
@@ -59,9 +62,19 @@ if __name__ == "__main__":
     ]))
 
     a = np.array(rationals([
-        [3, 5],
-        [-3, 4],
-        [7, -6],
+        # [3, 5],
+        # [-3, 4],
+        # [7, -6],
+
+        # [5, 18],
+        # [2, 5],
+        # [3, 10],
+
+        # [-3, -1, 2],
+        # [3, 1, -1],
+
+        [1, 3],
+        [4, 2],
     ]))
 
     optimal_policy(a)
